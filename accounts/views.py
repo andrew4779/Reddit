@@ -4,18 +4,15 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-# GET AND POST REQUESTS 
-#POST : Sending information to server  :::: use it for submiting data ::::: (and it doesnt show ur details in address bar)
-#GET : Retrieving info from server  :::: use it for fetching data :::::
 def signup(request):
     if request.method == 'POST':
         if(request.POST['password1'] == request.POST['password2']):
             try:
-                user = User.objects.get(username=request.POST['username'])  # we used uname if theres some usr with same name
+                user = User.objects.get(username=request.POST['username'])
                 return render(request, 'accounts/signup.html', {'error':'Username can\'t be same'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-                login(request, user)    # creates user and logs it in
+                login(request, user)
                 return render(request, 'accounts/signup.html')
         else:
             return render(request, 'accounts/signup.html', {'error':'Passwords didn\'t match'})
