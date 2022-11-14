@@ -9,3 +9,4 @@ class Post(models.Model):
     author = models.ForeignKey(User, 
     on_delete=models.CASCADE,)    # To refer to models defined in another application we can use Foreign Key
     votes_total = models.IntegerField(default=0)
+    
